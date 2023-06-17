@@ -74,11 +74,11 @@ spec:
         name: buildah
         kind: ClusterTask
       params:
-      - name: image
+      - name: IMAGE
         value: "$(params.build-image)"
       runAfter:
         - tests
-        - lint     
+        - lint  
 
     - name: deploy
       workspaces:
@@ -97,4 +97,4 @@ spec:
           oc apply -f deploy/
           oc get pods -l app=accounts
       runAfter:
-        - build             
+        - build
