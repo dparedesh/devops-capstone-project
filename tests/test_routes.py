@@ -17,7 +17,6 @@ from service import talisman
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
 )
-#from service import talisman
 
 BASE_URL = "/accounts"
 
@@ -26,6 +25,7 @@ HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -136,21 +136,21 @@ class TestAccountService(TestCase):
             f"{BASE_URL}/{account.id}", content_type="application/json"
         )
         # assert that the resp.status_code is status.HTTP_200_OK
-        self.assertEqual(resp.status_code,status.HTTP_200_OK)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # get the data from resp.get_json()
         data = resp.get_json()
         # assert that data["name"] equals the account.name
-        self.assertEqual(data['name'],account.name)
-    
+        self.assertEqual(data['name'], account.name)
+
     def test_account_not_found(self):
 
         """It should not Read an Account that is not found"""
         resp = self.client.get(
             f"{BASE_URL}/0"
         )
-    
-        self.assertEqual(resp.status_code,status.HTTP_404_NOT_FOUND)
         
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+    
     def test_update_account(self):
         """It should Update an existing Account"""
         # create an Account to update
@@ -207,3 +207,4 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
+        
